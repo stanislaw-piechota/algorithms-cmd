@@ -19,7 +19,7 @@ class Primality(Module):
     def naive_test(self):
         number = self.number
 
-        for i in range(2, int(number**0.5)+2):
+        for i in range(2, int(number**0.5)+1):
             if not number % i:
                 return False
         return True

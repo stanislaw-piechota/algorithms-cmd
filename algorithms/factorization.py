@@ -2,8 +2,8 @@ from processing import Module
 
 
 class Factorization(Module):
-    def __init__(self, number):
-        self.number = number
+    def __init__(self, **input):
+        self.number = input['number']
     
 
     @staticmethod
