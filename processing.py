@@ -50,8 +50,8 @@ class menu():
 
 
     def provide_code(self):
-        with open(f"{self.file_name}.py") as file:
-            code = file.read().split(self.func_name+'(self):\n')[1].split('\n\n')[1].split('\n\n\n')[0]
+        with open(f"algorithms/{self.file_name}.py") as file:
+            code = '\n\n'.join(file.read().split(self.func_name+'(self):\n')[1].split('\n\n')[1:]).split('\n\n\n')[0]
             code += "\n\nPress any key to kontinue..."
         return code
 
@@ -63,7 +63,7 @@ class menu():
             self.stdscr.refresh()
             self.stdscr.addstr(getattr(self, func_name)())
             self.stdscr.refresh()
-        except (TypeError, ValueError):
+        except (TypeError, ValueError) as e:
             return
         except Exception as e:
             print(e)

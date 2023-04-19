@@ -8,7 +8,7 @@ class Primality(Module):
 
     @staticmethod
     def _get_requirements():
-        return {"number": {"prompt": "Liczba całkowita", "type": int}}
+        return {"number": {"prompt": "Integer value", "type": int}}
     
 
     @staticmethod

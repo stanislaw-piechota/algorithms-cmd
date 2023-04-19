@@ -8,12 +8,12 @@ class Factorization(Module):
 
     @staticmethod
     def _get_requirements():
-        return {"number": {"prompt": "Liczba całkowita", "type":int}}
+        return {"number": {"prompt": "Integer value", "type":int}}
     
 
     @staticmethod
     def _get_output_type():
-        return {"factors": {"prompt":"Lista liczb całkowitych", "type":list}}
+        return {"factors": {"prompt":"List of integer values being factors", "type":list}}
 
 
     def multiple_test_division(self):
