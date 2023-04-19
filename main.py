@@ -1,8 +1,9 @@
 import curses
 import processing
-from curses import wrapper
+from curses import wrapper, color_pair as cl
 from importlib import import_module
 from os import listdir
+from utils import initialise_colors
 
 
 def main(stdscr):
@@ -14,6 +15,7 @@ def main(stdscr):
     stdscr.nodelay(True)
     stdscr.keypad(True)
     curses.echo()
+    initialise_colors()
 
     y = 1
     while True:
@@ -34,6 +36,10 @@ def main(stdscr):
                 y = len(menu)
         elif key == "\n":
             if menu_name == "Main menu":
+                if y == len(menu):
+                    curses.endwin()
+                    return 
+                
                 menu_name = package_names[y-1]
                 object = packages[y-1]
                 menu = [func for func in dir(object) if not func.startswith('_')]+["back"]
@@ -53,15 +59,17 @@ def main(stdscr):
                 y = 1
 
         stdscr.clear()
-        stdscr.addstr(menu_name)
+        stdscr.addstr(menu_name, cl(2))
         for i, name in enumerate(menu):
             stdscr.addstr(i+1, 0, f'    {name}')
-        stdscr.addstr(y, 0, ">")
+        stdscr.addstr(y, 0, ">", cl(3))
         stdscr.refresh()
 
 
 if __name__ == "__main__":
-    package_names = [file.split('.')[0].capitalize() for file in listdir('algorithms') if not file.startswith('_')]
+    package_names = [file.split('.')[0].capitalize() for file in listdir('algorithms') 
+                     if not file.startswith('_')]
     packages = [getattr(import_module(f"algorithms.{pkg.lower()}"), pkg) for pkg in package_names]
+    package_names += ['Quit']
     
     wrapper(main)

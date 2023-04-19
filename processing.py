@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from curses import color_pair as cl
 
 class menu():
     def __init__(self, object, file_name, func_name, stdscr):
@@ -25,14 +25,14 @@ class menu():
 
     def run_code(self):
         if self.input == {}:
-            return "No input provided. Change your input first"
+            return "No input provided. Change your input first", cl(1)
         
         instance = self.object(**self.input)
         try:
             result = getattr(instance, self.func_name)()
         except Exception as e:
             print(e)
-            return "Something went wrong while executing algorithm - "+e
+            return "Something went wrong while executing algorithm - "+e, cl(1)
 
         return "The result is:\n"+repr(result)
 
@@ -46,12 +46,13 @@ class menu():
                     self.input[name] = opt["type"](self.stdscr.getstr())
             return
         except (TypeError, ValueError):
-            return "Incorrect input, try again"
+            return "Incorrect input, try again", cl(1)
 
 
     def provide_code(self):
         with open(f"algorithms/{self.file_name}.py") as file:
-            code = '\n\n'.join(file.read().split(self.func_name+'(self):\n')[1].split('\n\n')[1:]).split('\n\n\n')[0]
+            code = file.read().split(self.func_name+'(self):\n')[1].split('# BEGIN\n')[1].split('# END')[0]
+            code = '\n'.join([line[2:] if line.startswith('\t') else line[8:] for line in code.split('\n')])
             code += "\n\nPress any key to kontinue..."
         return code
 
@@ -61,7 +62,11 @@ class menu():
         try:
             self.stdscr.clear()
             self.stdscr.refresh()
-            self.stdscr.addstr(getattr(self, func_name)())
+            result = getattr(self, func_name)()
+            if type(result) == str:
+                self.stdscr.addstr(result)
+            else:
+                self.stdscr.addstr(result[0], result[1])
             self.stdscr.refresh()
         except (TypeError, ValueError) as e:
             return

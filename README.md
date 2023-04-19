@@ -1,7 +1,7 @@
 # Algorithms practice
 
 ## Overview
-Python project with cmd/terminal context interactive menu. Created with `windows-curses 2.2.1` in `Python 3.10 (OOP)`
+Python project with cmd/terminal context interactive menu. Created with `curses` in `Python 3.8+`
 
 Application includes:
 - submitting input
@@ -22,7 +22,7 @@ Top line incldues information about module you're currently working on `ex. Fact
 1. Run terminal and change directory to main project folder
 2. Install _curses_
     - For windows try `pip install windows-curses`
-    - If it doesn't work and you have Python 3.10 installed use `pip install -r requirements.txt` as I included adequate _.whl_ file
+    - If it doesn't work and visit library website, download matching distribution _.whl_ and install it with `pip install <filename>`
     - Else, go to curses library website and download mathcing distribution and then `pip install <filename>`
 3. Type in terminal `python main.py`
 
@@ -32,6 +32,5 @@ For the program to work it needs proper structure. Here are the rules your algor
 1. **Only one class** in file, both **named the same**
 2. Class inherits from `processing.Module` and thus - has required methods
 3. File is located in `algorithms` folder
-4. There are at least **2 blank lines** between every function in code
-5. There is **1 blank line** between input variables and algorithm code
-6. Don't duplicate categories, ex. Fibonacci series is included in section `Series` and doesn't need additional file
+4. There must be comments `# BEGIN` on the beginning of the algorithm and `# END` on the end of the algorithm
+5. Don't duplicate categories, ex. Fibonacci series is included in section `Series` and doesn't need additional file
