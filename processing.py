@@ -82,7 +82,7 @@ class menu():
         for name, opt in self.object._get_requirements().items():
             description += f"    {name} ({opt['type']}): {opt['prompt']}\n"
         description += "\nOutput:\n"
-        for name, opt in self.object._get_output_type().items():
+        for name, opt in self.object._get_output_type(self.func_name).items():
             description += f"    {name} ({opt['type']}): {opt['prompt']}\n"
         description += "\n\nPress any key to continue..."
 

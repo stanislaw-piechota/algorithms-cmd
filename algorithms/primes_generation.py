@@ -9,8 +9,14 @@ class Primes_generation(Module):
         return {'n': {"type": int, "prompt": "Boundary of set [2, n]"}}
     
     @staticmethod
-    def _get_output_type():
-        return {'primes': {"type": list, "prompt": "List of prime numbers between [2, n]"}}
+    def _get_output_type(func_name):
+        options = {
+            "eratosthenes_sieve": 
+                {'primes': {"type": list, "prompt": "List of prime numbers between [2, n]"}},
+            "upgraded_eratosthenes_sieve": 
+                {'primes': {"type": list, "prompt": "List of prime numbers between [2, n]"}}
+        }
+        return options[func_name]
     
     def eratosthenes_sieve(self):
         n = self.max_number
