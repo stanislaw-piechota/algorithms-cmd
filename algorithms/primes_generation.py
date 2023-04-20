@@ -37,9 +37,6 @@ class Primes_generation(Module):
         primes = [2]
 
         # BEGIN
-        if n%2 == 1:
-            n -= 1
-
         m = n//2
         booleans = [True for _ in range(m)]
         index = 1
