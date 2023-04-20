@@ -14,6 +14,8 @@ class Factorization(Module):
         options = {
             "multiple_division_factorization": 
                 {"factors": {"prompt":"List of integer values being factors", "type":list}},
+            "divisors_list": 
+                {"divisors": {"prompt": "List of integer values begin divisors (including 1)", "type": list}},
             "perfect_number":
                 {"inline-return": {"prompt": "True/False", "type":bool}}
         }
@@ -35,10 +37,21 @@ class Factorization(Module):
         return factors
         # END
 
+    def divisors_list(self):
+        number = self.number
+        divisors = []
+
+        # BEGIN
+        for i in range(1, number//2+1):
+            if not number%i:
+                divisors.append(i)
+        return divisors
+        # END
+
     def perfect_number(self):
         number = self.number
 
         # BEGIN
-        self.factors = self.multiple_division_factorization()
+        self.factors = self.divisors_list()
         return sum(self.factors) == number
         # END
