@@ -11,9 +11,14 @@ class Factorization(Module):
 
     @staticmethod
     def _get_output_type():
-        return {"factors": {"prompt":"List of integer values being factors", "type":list}}
+        return {
+            "multiple_division_factorization": 
+                {"factors": {"prompt":"List of integer values being factors", "type":list}},
+            "perfect_number":
+                {"inline-return": {"prompt": "True/False", "type":bool}}
+        }
 
-    def multiple_test_division(self):
+    def multiple_division_factorization(self):
         number = self.number
         factors = []
 
@@ -28,3 +33,9 @@ class Factorization(Module):
 
         return factors
         # END
+
+    def perfect_number(self):
+        number = self.number
+
+        self.factors = self.multiple_division_factorization()
+        return sum(self.factors) == number
