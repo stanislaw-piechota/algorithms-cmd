@@ -31,3 +31,32 @@ class Primes_generation(Module):
 
         return primes
         # END
+
+    def upgraded_eratosthenes_sieve(self):
+        n = self.max_number
+        primes = [2]
+
+        # BEGIN
+        if n%2 == 1:
+            n -= 1
+
+        m = n//2
+        booleans = [True for _ in range(m)]
+        index = 1
+        p, q = 3, 4
+
+        while q < m:
+            if booleans[index]:
+                k = q
+                while k < m:
+                    booleans[k] = False
+                    k += p
+            index += 1
+            p += 2
+            q += p//2 - 2
+        for i in range(1, m):
+            if booleans[i]:
+                primes.append(2*i+1)
+
+        return primes
+        # END
